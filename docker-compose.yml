@@ -10,7 +10,7 @@ services:
       - 8080:8080
     environment:
       ES_URL: ${ES_URL}
-    command: ["yarn", "dev"]
+    command: ["yarn", "docker"]
 
   frontend:
     image: motherbrain-full-stack-challenge/frontend:latest
@@ -20,4 +20,4 @@ services:
       - /frontend/node_modules
     ports:
       - 3000:3000
-    command: ["yarn", "start"]
+    command: ["yarn", "dev"]

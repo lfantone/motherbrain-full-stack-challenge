@@ -1,0 +1,7 @@
+@responsive {
+  .bg-page-network {
+    @apply overflow-hidden bg-gray-100;
+    background: url(/img/network-background.svg) no-repeat right top;
+    background-blend-mode: exclusion;
+  }
+}

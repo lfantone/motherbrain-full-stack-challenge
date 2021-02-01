@@ -1,0 +1,17 @@
+.max-w-error-icon {
+  max-width: 450px;
+}
+
+.max-h-404-icon {
+  max-height: 350px;
+}
+
+@screen lg {
+  .max-w-error-icon {
+    max-width: 600px;
+  }
+
+  .max-h-404-icon {
+    max-height: 400px;
+  }
+}
