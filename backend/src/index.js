@@ -1,87 +1,38 @@
-const http = require("http");
-const { URL } = require("url");
-const { Client } = require("@elastic/elasticsearch");
+'use strict';
+const Koa = require('koa');
+const Router = require('@koa/router');
+const cors = require('@koa/cors');
+const logger = require('koa-logger');
+const helmet = require('koa-helmet');
+const error = require('koa-json-error');
 
-const client = new Client({
-  node: process.env.ES_URL
-});
+const elasticSearch = require('./middlewares/elastic-search');
 
-http.createServer(handle).listen(8080);
+const retriveAllOrganizationsHandler = require('./retrieve-all-organizations/retrieve-all-organizations.handler');
+const retrieveAllFundingsHandler = require('./retrieve-all-fundings/retrieve-all-fundings.handler');
 
-async function handle(req, res) {
-  try {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+const { ES_URL, PORT } = process.env;
 
-    const url = new URL(`http://incoming${req.url}`);
-    switch (`${req.method} ${url.pathname}`) {
-      case "GET /orgs":
-        res.writeHead(200).end(
-          JSON.stringify({
-            message: "OK",
-            results: await searchOrgs(url.searchParams)
-          })
-        );
-        break;
+const app = new Koa();
+const router = new Router();
 
-      case "GET /fundings":
-        res.writeHead(200).end(
-          JSON.stringify({
-            message: "OK",
-            results: await searchFundings(url.searchParams)
-          })
-        );
-        break;
+// Declare routes
+router.get('/organizations', retriveAllOrganizationsHandler);
+router.get('/fundings', retrieveAllFundingsHandler);
 
-      default:
-        res.writeHead(404).end(
-          JSON.stringify({
-            message: "Not Found"
-          })
-        );
-        break;
-    }
-  } catch (e) {
-    console.error(e.stack);
-    res.writeHead(500).end(
-      JSON.stringify({
-        message: "Something went wrong"
-      })
-    );
-  }
-}
+// Apply middlewares to Koa app.
+app
+  .use(logger())
+  .use(cors())
+  .use(error())
+  .use(helmet())
+  .use(
+    elasticSearch({
+      node: ES_URL || 'http://user:kuS87k3whgGW@35.228.54.168/elasticsearch/',
+      key: 'elasticsearch'
+    })
+  )
+  .use(router.routes())
+  .use(router.allowedMethods());
 
-async function searchOrgs(queryParams) {
-  const limit = queryParams.get("limit");
-  const offset = queryParams.get("offset");
-
-  const response = await client.search({
-    index: "org",
-    body: {
-      size: limit != null ? limit : 10,
-      from: offset != null ? offset : 0
-    }
-  });
-
-  return {
-    hits: response.body.hits.hits.map(h => h._source),
-    total: response.body.hits.total.value
-  };
-}
-
-async function searchFundings(queryParams) {
-  const limit = queryParams.get("limit");
-  const offset = queryParams.get("offset");
-
-  const response = await client.search({
-    index: "funding",
-    body: {
-      size: limit != null ? limit : 10,
-      from: offset != null ? offset : 0
-    }
-  });
-
-  return {
-    hits: response.body.hits.hits.map(h => h._source),
-    total: response.body.hits.total.value
-  };
-}
+app.listen(PORT || 8080);
