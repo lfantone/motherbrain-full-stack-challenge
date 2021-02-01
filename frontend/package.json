@@ -1,25 +1,85 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "lfantone-motherbrain-fullstack-frontend-challenge",
+  "version": "development",
   "private": true,
+  "scripts": {
+    "dev": "cross-env NEXT_TELEMETRY_DISABLED=1 NODE_ENV=development next -p 3000",
+    "build": "cross-env NEXT_TELEMETRY_DISABLED=1 next build",
+    "start": "cross-env NEXT_TELEMETRY_DISABLED=1 next start -p 3000 -H 0.0.0.0",
+    "clean": "rimraf .next out",
+    "analyze": "cross-env NEXT_BUNDLE_ANALYZE=true next build",
+    "lint": "eslint --fix src/ --ext js",
+    "format:prettier": "prettier --write \"src/**/*.js\"",
+    "format:import": "import-sort --write \"src/**/*.js\"",
+    "format": "run-s format:*",
+    "test": "jest --env=jsdom --colors --bail --errorOnDeprecated --detectOpenHandles --noStackTrace --passWithNoTests src/"
+  },
   "dependencies": {
+    "@flybondi/ramda-land": "^4.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "http-server": "^0.12.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.4.0"
+    "@tippyjs/react": "^4.2.0",
+    "clsx": "^1.1.1",
+    "next": "^10.0.3",
+    "ramda": "^0.27.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.13.7",
+    "swr": "^0.3.9",
+    "tailwindcss": "^2.0.1",
+    "tailwindcss-interaction-variants": "^5.0.0",
+    "url-join": "^4.0.1",
+    "use-debounce": "^5.1.0",
+    "yn": "^4.0.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "serve": "http-server build -p 3000"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@next/bundle-analyzer": "^10.0.3",
+    "@types/jest": "^26.0.18",
+    "@types/node": "^14.14.12",
+    "@types/ramda": "^0.27.32",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "autoprefixer": "^10.1.0",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-import-resolver-custom-alias": "^1.2.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-ramda": "^2.5.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-sort-destructure-keys": "^1.3.5",
+    "eslint-plugin-standard": "^4.1.0",
+    "husky": "^4.3.5",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-style-module": "^6.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.3",
+    "next-compose-plugins": "^2.2.1",
+    "next-fonts": "^1.5.1",
+    "next-images": "^1.6.2",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^13.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-url": "^10.1.1",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "shell-quote": "^1.7.2",
+    "webpack": "^5.10.0",
+    "xxhashjs": "^0.2.2"
   },
   "browserslist": {
     "production": [
@@ -31,6 +91,27 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "test"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js, json}": [
+      "prettier --write",
+      "import-sort --write",
+      "eslint --fix",
+      "jest -0 --passWithNoTests"
+    ],
+    "src/**/*.json": ["prettier --write"]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
     ]
   }
 }

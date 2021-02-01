@@ -1,0 +1,86 @@
+{
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "prettier/standard",
+    "plugin:import/errors",
+    "plugin:jsx-a11y/recommended",
+    "plugin:ramda/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["import", "jsx-a11y", "ramda", "react", "react-hooks", "sort-destructure-keys"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        "alias": { "@": "./src" }
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "globals": {
+    "React": "writable"
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "no-extra-semi": 2,
+    "no-console": "warn",
+    "strict": ["error", "global"],
+
+    "import/no-duplicates": "warn",
+
+    "sort-destructure-keys/sort-destructure-keys": 2,
+
+    "no-restricted-properties": [
+      "error",
+      {
+        "object": "require",
+        "property": "ensure",
+        "message": "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting"
+      },
+      {
+        "object": "System",
+        "property": "import",
+        "message": "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting"
+      }
+    ],
+    "getter-return": "warn",
+
+    // https://github.com/zeit/next.js/issues/5533
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
+
+    // https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules
+    "react/react-in-jsx-scope": "off",
+
+    // https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    "react/no-danger": "error",
+    "react/no-direct-mutation-state": "error"
+  }
+}
