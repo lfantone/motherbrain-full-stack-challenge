@@ -96,16 +96,14 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "src/**/*.{js, json}": [
       "prettier --write",
       "import-sort --write",
-      "eslint --fix",
-      "jest -0 --passWithNoTests"
+      "eslint --fix"
     ],
     "src/**/*.json": [
       "prettier --write"
