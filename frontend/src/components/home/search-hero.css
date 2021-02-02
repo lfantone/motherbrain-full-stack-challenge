@@ -1,0 +1,19 @@
+.search-hero.bg-gradient {
+  @apply overflow-hidden bg-primary-100;
+  background: url(/img/network-background.svg) -10rem no-repeat,
+    linear-gradient(30deg, theme('colors.indigo.500'), theme('colors.primary.100'));
+  background-blend-mode: color-dodge;
+}
+
+@screen lg {
+  .search-hero.bg-gradient {
+    @apply overflow-hidden bg-primary-100;
+    background: url(/img/network-background.svg) center right no-repeat,
+      linear-gradient(30deg, theme('colors.indigo.500'), theme('colors.primary.100'));
+    background-blend-mode: color-dodge;
+  }
+}
+
+.shadow-soft > .input {
+  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.08);
+}

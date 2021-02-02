@@ -1,3 +1,9 @@
+/*
+ * `line-awesome` currently requires full path to be able to import it with postcss-import
+ *  https://github.com/icons8/line-awesome/pull/63
+*/
+@import 'line-awesome/dist/line-awesome/css/line-awesome.css';
+
 /**
  * This injects Tailwind's base styles and any base styles registered by
  * plugins.

@@ -3,3 +3,8 @@ build/
 .vscode
 yarn-error.log
 .next/
+
+# Ignore fonts copied from node_modules when building the app (i.e. next build)
+public/fonts
+!public/fonts/la-*
+!public/fonts/source-sans-pro-*

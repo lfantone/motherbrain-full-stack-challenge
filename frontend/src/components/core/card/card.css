@@ -1,0 +1,89 @@
+.card {
+  @apply w-full p-2 bg-white rounded-lg outline-none;
+}
+
+.card.card-elevation-xs {
+  @apply ring-1 ring-black ring-opacity-5;
+}
+
+.card.card-elevation-md {
+  @apply shadow-md;
+}
+
+.card.card-elevation-lg {
+  @apply shadow-lg;
+}
+
+.card.card-elevation-xl {
+  @apply shadow-xl;
+}
+
+.card-header > .card-heading {
+  @apply mb-0 font-bold text-gray-800;
+}
+
+.card-header.card-header-xs > .card-heading {
+  @apply text-sm leading-tight;
+}
+
+.card-header.card-header-sm > .card-heading {
+  @apply text-base leading-tight;
+}
+
+.card-header.card-header-md > .card-heading {
+  @apply text-lg leading-snug;
+}
+
+.card-header > .card-subheading {
+  @apply font-bold text-gray-500;
+}
+
+.card-header.card-header-xs > .card-subheading {
+  @apply text-xs;
+}
+
+.card-header.card-header-sm > .card-subheading {
+  @apply text-sm;
+}
+
+.card-header.card-header-md > .card-subheading {
+  @apply text-base;
+}
+
+.card-header.card-header-icon {
+  @apply flex items-center;
+}
+
+.card-media {
+  @apply h-auto text-center bg-cover rounded-t;
+}
+
+.card-media.card-media-sm {
+  @apply w-12 py-2 pl-1;
+}
+
+.card-media.card-media-md {
+  @apply w-16 py-3 pl-3;
+}
+
+.card-content {
+  @apply w-full;
+}
+
+@screen lg {
+  .card {
+    @apply max-w-full;
+  }
+
+  .card-header > .card-subheading {
+    @apply text-base;
+  }
+
+  .card-header-icon {
+    @apply flex-grow;
+  }
+
+  .card-media {
+    @apply w-24 rounded-t-none rounded-l;
+  }
+}

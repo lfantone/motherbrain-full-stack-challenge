@@ -1,0 +1,101 @@
+.btn {
+  @apply px-6 py-2 font-semibold transition duration-150 ease-in-out;
+}
+
+.btn-p-circle {
+  padding: 0.3rem;
+}
+
+.btn.btn-disabled {
+  @apply opacity-75 cursor-not-allowed;
+}
+
+.btn.btn-dense {
+  @apply py-1;
+}
+
+.btn.btn-circle {
+  border-radius: 100%;
+}
+
+.btn:focus {
+  @apply outline-none ring;
+}
+
+/* Contained variant */
+.btn.btn-contained {
+  @apply text-gray-100;
+}
+
+.btn-contained:focus,
+.btn-contained:hover {
+  @apply text-gray-200;
+}
+
+.btn.btn-contained.btn-primary {
+  @apply bg-primary-100;
+}
+
+.btn.btn-contained.btn-primary:hover,
+.btn.btn-contained.btn-primary:focus {
+  @apply bg-primary-400;
+}
+
+.btn.btn-contained.btn-secondary {
+  @apply bg-secondary-100;
+}
+
+.btn.btn-contained.btn-secondary:hover,
+.btn.btn-contained.btn-secondary:focus {
+  @apply bg-secondary-400;
+}
+
+/* Outlined variant */
+.btn.btn-outlined {
+  @apply bg-transparent border;
+}
+
+.btn.btn-outlined.btn-primary {
+  @apply text-primary-100 border-primary-100;
+}
+
+.btn.btn-outlined.btn-primary:hover,
+.btn.btn-outlined.btn-primary:focus {
+  @apply text-primary-400 border-primary-400;
+}
+
+.btn.btn-outlined.btn-secondary {
+  @apply text-secondary-100 border-secondary-100;
+}
+
+.btn.btn-outlined.btn-secondary:hover,
+.btn.btn-outlined.btn-secondary:focus {
+  @apply text-secondary-400 border-secondary-400;
+}
+
+/* Text variant */
+.btn.btn-text {
+  @apply px-2;
+}
+
+.btn.btn-text.btn-primary {
+  @apply bg-transparent border-0;
+}
+
+.btn.btn-text.btn-primary {
+  @apply text-primary-100;
+}
+
+.btn.btn-text.btn-primary:hover,
+.btn.btn-text.btn-primary:focus {
+  @apply bg-blue-100 bg-opacity-75 text-primary-400;
+}
+
+.btn.btn-text.btn-secondary {
+  @apply text-secondary-100;
+}
+
+.btn.btn-text.btn-secondary:hover,
+.btn.btn-text.btn-secondary:focus {
+  @apply bg-gray-200 bg-opacity-75 text-secondary-400;
+}

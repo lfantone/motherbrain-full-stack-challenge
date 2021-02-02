@@ -1,0 +1,47 @@
+.btn-icon {
+  flex: '0 0 auto';
+  border-radius: 50%;
+  @apply overflow-visible text-center text-gray-600 transition-colors duration-100 outline-none btn-p-circle;
+}
+
+.btn-icon:focus {
+  @apply outline-none;
+}
+
+.btn-icon.btn-icon-default:hover {
+  @apply bg-gray-300;
+  @apply bg-opacity-50;
+}
+
+.btn-icon > .btn-icon-label {
+  align-items: 'inherit';
+  justify-content: 'inherit';
+  @apply flex w-full;
+}
+
+.btn-icon.btn-icon-primary {
+  @apply text-primary-100;
+}
+
+.btn-icon.btn-icon-primary:hover {
+  @apply bg-primary-100;
+  @apply bg-opacity-5;
+}
+
+.btn-icon.btn-icon-secondary {
+  @apply text-secondary-100;
+}
+
+.btn-icon.btn-icon-secondary:hover {
+  @apply bg-secondary-100;
+  @apply bg-opacity-5;
+}
+
+@media (hover: none) {
+  /* Reset on touch devices */
+  .btn-icon:hover,
+  .btn-icon.btn-icon-primary:hover,
+  .btn-icon.btn-icon-secondary:hover {
+    background-color: 'transparent';
+  }
+}

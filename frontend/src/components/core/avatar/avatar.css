@@ -1,0 +1,49 @@
+.avatar {
+  @apply relative flex items-center justify-center flex-shrink-0 overflow-hidden leading-none transition-colors duration-150 ease-in bg-gray-400 select-none;
+}
+
+.avatar:hover {
+  @apply bg-opacity-50;
+}
+
+@responsive {
+  .avatar.avatar-xxs {
+    @apply w-4 h-4;
+  }
+
+  .avatar.avatar-xs {
+    @apply w-8 h-8;
+  }
+
+  .avatar.avatar-sm {
+    @apply w-12 h-12;
+  }
+
+  .avatar.avatar-md {
+    @apply w-16 h-16;
+  }
+
+  .avatar.avatar-lg {
+    @apply w-20 h-20;
+  }
+
+  .avatar.avatar-xl {
+    @apply w-24 h-24;
+  }
+
+  .avatar.avatar-2xl {
+    @apply w-32 h-32;
+  }
+}
+
+.avatar.avatar-circle {
+  border-radius: 100%;
+}
+
+.avatar.avatar-rounded {
+  @apply rounded-xl;
+}
+
+.avatar .avatar-img {
+  @apply object-cover w-full h-full text-center text-transparent;
+}

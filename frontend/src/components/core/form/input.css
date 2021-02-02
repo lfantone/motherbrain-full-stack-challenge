@@ -1,0 +1,51 @@
+.input-wrapper {
+  @apply relative flex flex-wrap items-stretch cursor-text;
+  /* Reset (19px), match the native input line-height */
+  line-height: 1.1876em;
+}
+
+.input {
+  @apply relative block w-full min-w-0 px-5 py-3 m-0 font-thin text-gray-900 bg-white border-0 rounded shadow-md outline-none;
+}
+
+.input-error {
+  @apply border-l-4 border-red-200;
+}
+
+.input.input-dense {
+  @apply pt-2 pb-2;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  /* Remove the padding when type=search. */
+  -webkit-appearance: none;
+}
+
+.input[type='search'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.input:focus {
+  @apply ring outline-none;
+}
+
+.input-icon {
+  @apply absolute flex items-center justify-center w-8 h-full py-3 text-base font-normal leading-snug text-center text-gray-600 bg-transparent z-1;
+}
+
+.input-icon-error {
+  @apply text-red-200;
+}
+
+.input-wrapper .input-icon-start {
+  @apply left-0 pl-2;
+}
+
+.input-wrapper .input-icon-end {
+  @apply right-0 pr-1;
+}

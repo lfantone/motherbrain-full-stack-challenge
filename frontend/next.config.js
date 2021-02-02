@@ -1,17 +1,11 @@
 /* eslint-disable strict */
 'use strict';
-const boolify = require('yn');
 const withFonts = require('next-fonts');
 const withImages = require('next-images');
 const withPlugins = require('next-compose-plugins');
-const bundleAnalyzer = require('@next/bundle-analyzer');
 const pck = require('./package.json');
 const { isNil } = require('ramda');
 const { rejectNilOrEmpty } = require('@flybondi/ramda-land');
-
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: boolify(process.env.NEXT_BUNDLE_ANALYZE, { default: false })
-});
 
 /**
  * Extracts the hostname from the supplied URL. If `null` or `undefined`, this
@@ -27,7 +21,6 @@ const hostname = url => (isNil(url) ? undefined : new URL(url).hostname);
 const date = new Date();
 
 const nextConfig = {
-  // target: process.env.NODE_ENV === 'production' ? 'serverless' : 'server',
   // Do not show the X-Powered-By header in the responses
   poweredByHeader: false,
   devIndicators: {
@@ -37,6 +30,7 @@ const nextConfig = {
   },
   images: {
     domains: rejectNilOrEmpty([
+      'picsum.photos',
       hostname(process.env.NEXT_PUBLIC_AS_ASSETS_BASE_URL)
     ])
   },
@@ -48,4 +42,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins([withBundleAnalyzer, withImages, withFonts], nextConfig);
+module.exports = withPlugins([withImages, withFonts], nextConfig);

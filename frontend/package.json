@@ -16,17 +16,18 @@
   },
   "dependencies": {
     "@flybondi/ramda-land": "^4.0.2",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@tippyjs/react": "^4.2.0",
+    "@seznam/compose-react-refs": "^1.0.5",
     "clsx": "^1.1.1",
+    "date-fns": "^2.16.1",
+    "iso-3166-1": "^2.0.1",
+    "line-awesome": "^1.3.0",
     "next": "^10.0.3",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.13.7",
     "ramda": "^0.27.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "prop-types": "^15.7.2",
-    "query-string": "^6.13.7",
+    "react-input-mask": "^2.0.4",
     "swr": "^0.3.9",
     "tailwindcss": "^2.0.1",
     "tailwindcss-interaction-variants": "^5.0.0",
@@ -37,7 +38,6 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@next/bundle-analyzer": "^10.0.3",
     "@types/jest": "^26.0.18",
     "@types/node": "^14.14.12",
     "@types/ramda": "^0.27.32",
@@ -107,7 +107,9 @@
       "eslint --fix",
       "jest -0 --passWithNoTests"
     ],
-    "src/**/*.json": ["prettier --write"]
+    "src/**/*.json": [
+      "prettier --write"
+    ]
   },
   "commitlint": {
     "extends": [

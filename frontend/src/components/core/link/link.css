@@ -1,0 +1,21 @@
+.link {
+  @apply tracking-wide transition duration-300 border-b-2 border-transparent;
+}
+
+.link.link-primary {
+  @apply text-primary-100;
+}
+
+.link.link-secondary {
+  @apply text-secondary-100;
+}
+
+.link.link-primary:hover,
+.link.link-primary:focus {
+  @apply border-primary-200 text-primary-200;
+}
+
+.link.link-secondary:hover,
+.link.link-secondary:hover {
+  @apply border-secondary-200 text-secondary-200;
+}
