@@ -1,5 +1,6 @@
 'use strict';
-const { always, applySpec, propOr } = require('ramda');
+const { rejectNilOrEmpty } = require('@flybondi/ramda-land');
+const { always, applySpec, compose, prop, propOr } = require('ramda');
 
 /**
  * Creates a function that will generate the spec for a Search request.
@@ -10,10 +11,21 @@ const { always, applySpec, propOr } = require('ramda');
 function createSearchParamsFor(index) {
   return applySpec({
     index: always(index),
-    body: {
-      size: propOr(10, 'limit'),
-      from: propOr(0, 'offset')
-    }
+    body: compose(
+      rejectNilOrEmpty,
+      applySpec({
+        size: propOr(10, 'limit'),
+        from: propOr(0, 'offset'),
+        query: compose(
+          rejectNilOrEmpty,
+          applySpec({
+            match: prop('match'),
+            term: prop('term')
+          }),
+          propOr({}, 'query')
+        )
+      })
+    )
   });
 }
 

@@ -9,7 +9,9 @@ const error = require('koa-json-error');
 const elasticSearch = require('./middlewares/elastic-search');
 
 const retriveAllOrganizationsHandler = require('./retrieve-all-organizations/retrieve-all-organizations.handler');
+const retriveOrganizationHandler = require('./retrieve-organization/retrieve-organization.handler');
 const retrieveAllFundingsHandler = require('./retrieve-all-fundings/retrieve-all-fundings.handler');
+const retrieveFundingHandler = require('./retrieve-funding/retrieve-funding.handler');
 
 const { ES_URL, PORT } = process.env;
 
@@ -17,8 +19,11 @@ const app = new Koa();
 const router = new Router();
 
 // Declare routes
-router.get('/organizations', retriveAllOrganizationsHandler);
-router.get('/fundings', retrieveAllFundingsHandler);
+router
+  .get('/organizations', retriveAllOrganizationsHandler)
+  .get('/organizations/:id', retriveOrganizationHandler)
+  .get('/fundings', retrieveAllFundingsHandler)
+  .get('/fundings/:id', retrieveFundingHandler);
 
 // Apply middlewares to Koa app.
 app

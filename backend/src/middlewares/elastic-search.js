@@ -10,7 +10,6 @@ const { Client } = require('@elastic/elasticsearch');
  */
 function createElasticsearchMiddleware(opts = {}) {
   const client = new Client(opts);
-
   /**
    * Inject an elastic-search client in the Koa context under the `opts.key` property if present, otherwhise default to `elasticsearch`.
    *
