@@ -1,17 +1,23 @@
 'use strict';
 const parseResponseFrom = require('../utils/parse-response-from');
-// const createSearchParamsFor = require('../utils/create-search-params-for');
-const { compose, evolve, pathOr, prop, propOr } = require('ramda');
+const createSearchParamsFor = require('../utils/create-search-params-for');
 const parseOrganizationFrom = require('../utils/to-organization');
+const { compose, evolve, filter, pathOr, prop, propEq, propOr, sortBy, when } = require('ramda');
+const { isNotNilOrEmpty } = require('@flybondi/ramda-land');
 
-// const searchParamsWith = createSearchParamsFor('funding');
-
+const searchParamsWith = createSearchParamsFor('funding');
+const getCompanyName = pathOr(null, ['body', '_source', 'company_name']);
+const filterFundingsById = (id, fundings) => filter(propEq('company_uuid', id), fundings);
+const sortFundingsByAnnouncedOn = sortBy(prop('announced_on'));
 const toOrganization = compose(
   parseOrganizationFrom,
-  ({ fundings, organization }) => ({ ...organization, fundings }),
+  when(compose(isNotNilOrEmpty, prop('organization')), ({ fundings, organization }) => ({
+    ...organization,
+    fundings: filterFundingsById(organization.uuid, fundings)
+  })),
   evolve({
-    fundings: compose(propOr([], 'hits'), parseResponseFrom, prop('fundings')),
-    organization: pathOr({}, ['body', '_source'])
+    fundings: compose(sortFundingsByAnnouncedOn, propOr([], 'hits'), parseResponseFrom),
+    organization: pathOr(null, ['body', '_source'])
   })
 );
 
@@ -26,14 +32,17 @@ async function retrieveAllFundingsHandler(ctx) {
     params: { id }
   } = ctx;
 
-  const [getResponse, searchResponse] = await Promise.all([
-    elasticsearch.get({ index: 'org', id }),
-    // NOTE: Disable because the company_uuid is not an indexed field so is not possible to search/filter.
-    // elasticsearch.search(
-    //   searchParamsWith({ size: null, query: { term: { company_uuid: { value: id } } } })
-    // )
-    Promise.resolve({ body: { hits: { hits: [] } } })
-  ]);
+  const getResponse = await elasticsearch.get({ index: 'org', id });
+  const name = getCompanyName(getResponse);
+
+  const searchResponse = name
+    ? await elasticsearch.search(
+        searchParamsWith({
+          size: null,
+          query: { match: { company_name: name } }
+        })
+      )
+    : { body: { hits: { hits: [] } } };
 
   ctx.response.body = toOrganization({ organization: getResponse, fundings: searchResponse });
 }

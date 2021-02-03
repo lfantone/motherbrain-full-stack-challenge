@@ -11,7 +11,7 @@ describe('the retrieve all fundings handler', () => {
     };
     await handler(mockContext);
 
-    expect(mockSearch).toHaveBeenCalledWith({ body: { from: 0, size: 10 }, index: 'funding' });
+    expect(mockSearch).toHaveBeenCalledWith({ body: { from: 0 }, index: 'funding' });
   });
 
   test('should parse the response from search', async () => {
