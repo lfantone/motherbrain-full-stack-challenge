@@ -11,7 +11,7 @@ describe('the retrieve all organizations handler', () => {
     };
     await handler(mockContext);
 
-    expect(mockSearch).toHaveBeenCalledWith({ body: { from: 0, size: 10 }, index: 'org' });
+    expect(mockSearch).toHaveBeenCalledWith({ body: { from: 0 }, index: 'org' });
   });
 
   test('should parse the response from search', async () => {
@@ -63,6 +63,22 @@ describe('the retrieve all organizations handler', () => {
         }
       ],
       total: 1
+    });
+  });
+
+  test('should add the match value to the search input', async () => {
+    const mockSearch = jest.fn().mockResolvedValue({});
+
+    const mockContext = {
+      elasticsearch: { search: mockSearch },
+      request: { query: { q: 'foo' } },
+      response: { body: null }
+    };
+    await handler(mockContext);
+
+    expect(mockSearch).toHaveBeenCalledWith({
+      body: { from: 0, query: { match: { company_name: 'foo' } } },
+      index: 'org'
     });
   });
 });

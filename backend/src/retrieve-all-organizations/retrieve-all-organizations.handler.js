@@ -24,8 +24,11 @@ async function retrieveAllOrganizationsHandler(ctx) {
     elasticsearch,
     request: { query }
   } = ctx;
+  const { limit, offset, q } = query;
 
-  const response = await elasticsearch.search(searchParamsWith(query));
+  const response = await elasticsearch.search(
+    searchParamsWith({ limit, offset, query: { match: q ? { company_name: q } : null } })
+  );
 
   ctx.response.body = toOrganizations(response);
 }
