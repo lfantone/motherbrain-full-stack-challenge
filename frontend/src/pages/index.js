@@ -33,7 +33,7 @@ function Home({ fundings, organizations }) {
 
   // Navigate to corresponding organization post page using its id when clicking on featured organization card
   const onOrganizationClick = organization =>
-    router.push('/organizations/[id]', `/organizations/${encodeURIComponent(organization.slug)}`);
+    router.push('/organizations/[id]', `/organizations/${encodeURIComponent(organization.id)}`);
 
   return (
     <Page>

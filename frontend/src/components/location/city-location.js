@@ -27,7 +27,7 @@ CityLocation.propTypes = {
   style: PropTypes.object,
 
   /**
-   * The company or job location as determined by its `city` and `country`
+   * The organization location as determined by its `city` and `country`
    * @type {Object}
    */
   location: Props.location.isRequired,
@@ -76,7 +76,7 @@ const countryName = compose(
     prop('country'),
     prop('alpha3')
   ),
-  iso.whereAlpha2
+  iso.whereAlpha3
 );
 
 function CityLocation({

@@ -7,3 +7,5 @@
 @import '../components/home/search-hero.css';
 @import '../components/layout/error.css';
 @import '../components/layout/page.css';
+@import '../components/search/search-bar.css';
+@import '../components/search/search-results.css';

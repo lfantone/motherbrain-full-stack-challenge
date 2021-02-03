@@ -1,0 +1,4 @@
+.search-bar.bg-gradient {
+  @apply overflow-hidden bg-primary-100;
+  background: linear-gradient(30deg, theme('colors.indigo.500'), theme('colors.primary.100'));
+}

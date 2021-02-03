@@ -4,6 +4,7 @@ import { isNilOrEmpty, rejectNilOrEmpty } from '@flybondi/ramda-land';
 import { httpGet } from '@/fetch';
 import isString from '@/utils/is-string';
 import qs from 'query-string';
+import urlJoin from 'url-join';
 import useDidMount from '@/components/core/use-did-mount';
 import { useMemo } from 'react';
 import useSWR from 'swr';
@@ -24,7 +25,7 @@ const buildOrganizationsQuery = compose(
   // Remove white spaces from all string values
   map(when(isString, trim)),
   // Extract only known, supported query string values
-  pick(['limit', 'offset'])
+  pick(['limit', 'offset', 'q'])
 );
 
 /**
@@ -35,6 +36,7 @@ const buildOrganizationsQuery = compose(
  *  must be supplied to trigger a request.
  * @param {string} [query.offset] the search results should start from.
  * @param {number} [query.limit=50] Limit the number of returned organizations items (defaults to 50).
+ * @param {string} [query.q] Keywords to search organizations by - uses fuzzy matching on most text fields on a organiaztion entity.
  * @param {Object} [options={}] Request and SWR options.
  * @param {Object[]} [options.initialData] SSR fetched organization data - will be passed down to `useSWR`.
  * @returns {import('swr').responseInterface<any, any>} SWR response interface.
@@ -50,7 +52,7 @@ function useOrganizations(query = {}, { initialData } = {}) {
       : [API_ORGANIZATIONS_ENDPOINT, qs.stringify(organizationsQuery)];
   }, [query]);
 
-  const { data, error, mutate, revalidate } = useSWR(key, {
+  const { data = {}, error, mutate, revalidate } = useSWR(key, {
     fetcher: httpGet,
     initialData: didMount ? undefined : initialData,
     refreshWhenHidden: false,
@@ -59,7 +61,7 @@ function useOrganizations(query = {}, { initialData } = {}) {
   });
 
   return {
-    data,
+    data: data.organizations,
     error,
     mutate,
     revalidate
@@ -74,10 +76,22 @@ function useOrganizations(query = {}, { initialData } = {}) {
  * @param {string} [query.offset] The search results should start from - use in conjunction with `query.limit`
  *  to provide pagination capabilities.
  * @param {number} [query.limit] Limit the number of returned organization items from a search.
+ * @param {string} [query.q] Keywords to search organizations by - uses fuzzy matching on most text fields on a organiaztion entity.
  * @returns {Promise.<Object[]>} Resolves to the list of organizations that matched the `query`.
  */
 export async function fetchOrganizations(query = {}) {
   const data = await httpGet(API_ORGANIZATIONS_ENDPOINT, buildOrganizationsQuery(query));
+
+  return data;
+}
+
+/**
+ * Fetches a single organization item by its id from a `GET /organization/:id` API endpoint.
+ * @param {string} id The identifier of the organization to be requested.
+ * @returns {Promise.<Object>} Resolves to the matching organization.
+ */
+export async function fetchSingleOrganization(id) {
+  const data = await httpGet(urlJoin(API_ORGANIZATIONS_ENDPOINT, encodeURIComponent(id)));
 
   return data;
 }

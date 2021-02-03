@@ -61,10 +61,14 @@ function FundingsFeature({ as: Component, className, fundings, style, title }) {
       {isNotNilOrEmpty(fundings) && (
         <div className="flex flex-wrap overflow-hidden animate-fade-in-bck">
           {fundings.map(funding => (
-            <div key={`funding-${toLower(funding.name)}`} className="w-2/5">
-              <Link href="/jobs/fundings/[funding]" className="text-sm font-light" color="primary">
+            <div key={`funding-${toLower(funding.name)}`} className="w-2/5 lg:w-2/3">
+              <Link
+                href="/organizations/fundings/[funding]"
+                className="text-sm font-light"
+                color="primary"
+              >
                 {funding.name}
-                <span className="ml-1">({funding.raisedAmount})</span>
+                <span className="ml-1">(${funding.raisedAmount})</span>
               </Link>
             </div>
           ))}

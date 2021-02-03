@@ -50,7 +50,7 @@ function useFundings(query = {}, { initialData } = {}) {
       : [API_FUNDINGS_ENDPOINT, qs.stringify(fundingsQuery)];
   }, [query]);
 
-  const { data, error, mutate, revalidate } = useSWR(key, {
+  const { data = {}, error, mutate, revalidate } = useSWR(key, {
     fetcher: httpGet,
     initialData: didMount ? undefined : initialData,
     refreshWhenHidden: false,
@@ -59,7 +59,7 @@ function useFundings(query = {}, { initialData } = {}) {
   });
 
   return {
-    data,
+    data: data.fundings,
     error,
     mutate,
     revalidate
